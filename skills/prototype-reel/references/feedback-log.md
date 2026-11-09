@@ -62,3 +62,7 @@ Rule:   the default from now on (and which reference file holds it)
 **Note:** "The captions read like ad copy."
 **Change:** Rewrote as short, complete, plain sentences.
 **Rule:** One plain sentence per beat. No comma-joined taglines. (`pacing.md`)
+
+**Note:** "The zoom feels too fast. It's less polished."
+**Change:** Gave the camera its own curves. The push-in went from 450ms on the UI ease-out to 900ms on a soft-start curve, and it settles before the tap. The pull-back runs 550ms on a quicker-start curve so it doesn't lag the release. The pad before the push was cut, since the soft start already reads as hold.
+**Rule:** The camera is heavier than the UI. It eases in and settles. (`motion-tokens.md`)
