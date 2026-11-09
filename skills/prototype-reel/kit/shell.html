@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype shell</title>
+<link rel="stylesheet" href="proto.css">
+<style>
+  /* Example product styles. Replace with the real design. */
+  .wrap { max-width: 640px; margin: 0 auto; padding: 16px; }
+  body[data-mode="desktop"] .wrap { padding: 32px 16px 96px; }
+  .eyebrow { font-size: 12px; color: var(--text2); margin: 8px 4px 8px; }
+  .card { background: var(--surface); border-radius: var(--r-card); box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 20px rgba(0,0,0,.05); overflow: hidden; }
+  .row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border: 0; background: none; text-align: left; cursor: pointer; }
+  .row + .row { box-shadow: inset 0 1px 0 var(--line); }
+  body[data-mode="desktop"] .row:hover { background: rgba(0,0,0,.03); }
+  .thumb { width: 40px; height: 40px; border-radius: 10px; background: #dfe3e2; flex: none; }
+  .t1 { font-size: 15px; font-weight: 600; line-height: 20px; }
+  .t2 { font-size: 13px; color: var(--text2); line-height: 18px; }
+  .lines { flex: 1; min-width: 0; display: grid; gap: 2px; }
+  .lines > * { min-height: 18px; }
+  .hero { height: 180px; background: linear-gradient(135deg, #dfe6e4, #cfd8d6); border-radius: var(--r-card); margin-bottom: 16px; }
+  h2 { font-size: 22px; line-height: 28px; margin: 0 0 6px; }
+  p { font-size: 15px; line-height: 22px; color: var(--text2); margin: 0 0 20px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border: 0; border-radius: var(--r-control); background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
+  .btn.secondary { background: var(--surface); color: var(--text); box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
+  .sheet h3 { margin: 4px 0 12px; font-size: 17px; }
+  .sheet .row { border-radius: 12px; }
+</style>
+</head>
+<body>
+
+<!-- Shell toolbar: name, flow hint, Desktop/Mobile, Captions, Tap hints, Restart -->
+<header class="tb">
+  <span class="name"></span>
+  <span class="hint"></span>
+  <span class="spacer"></span>
+  <div class="seg" role="group" aria-label="Device">
+    <button data-mode="desktop" aria-pressed="true">Desktop</button>
+    <button data-mode="mobile" aria-pressed="false">Mobile</button>
+  </div>
+  <button class="ghost" data-toggle="captions">Captions</button>
+  <button class="ghost" data-toggle="hints">Tap hints</button>
+  <button class="ghost" data-restart>Restart</button>
+</header>
+
+<main class="stage">
+  <div class="viewport">
+    <div class="status-bar" aria-hidden="true">
+      <span>9:41</span>
+      <svg width="66" height="12" viewBox="0 0 66 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M29 3.2a9 9 0 0 1 11 0l-1.3 1.4a7 7 0 0 0-8.4 0zM31.4 5.8a5.2 5.2 0 0 1 6.2 0l-1.3 1.4a3.3 3.3 0 0 0-3.6 0zM34.5 8.2l1.6 1.7-1.6 1.7-1.6-1.7z"/><rect x="44" y="1" width="20" height="10" rx="3" fill="none" stroke="currentColor" opacity=".4"/><rect x="46" y="3" width="15" height="6" rx="1.5"/></g></svg>
+    </div>
+
+    <!-- Screen: list -->
+    <section class="screen" data-screen="list">
+      <div class="hdr"><span></span><h1>Projects</h1><span></span></div>
+      <div class="wrap">
+        <div class="eyebrow">Recent</div>
+        <div class="card" id="list">
+          <button class="row pressable" data-push="detail" id="first-row">
+            <span class="thumb" data-load></span>
+            <span class="lines"><span class="t1" data-load>Spring launch</span><span class="t2" data-load>Edited 2 hours ago</span></span>
+          </button>
+          <button class="row pressable" data-push="detail">
+            <span class="thumb" data-load></span>
+            <span class="lines"><span class="t1" data-load>Onboarding refresh</span><span class="t2" data-load>Edited yesterday</span></span>
+          </button>
+          <button class="row pressable" data-push="detail">
+            <span class="thumb" data-load></span>
+            <span class="lines"><span class="t1" data-load>Help center</span><span class="t2" data-load>Edited last week</span></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: detail -->
+    <section class="screen" data-screen="detail">
+      <div class="hdr">
+        <button class="icon-btn" data-back aria-label="Back"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <h1>Spring launch</h1><span></span>
+      </div>
+      <div class="wrap">
+        <div class="hero"></div>
+        <h2>Spring launch</h2>
+        <p>A short description of the project so the screen has real content to read.</p>
+        <button class="btn pressable" data-sheet="share" id="share-btn">Share</button>
+      </div>
+    </section>
+
+    <!-- Sheet (mobile) / modal (desktop) -->
+    <div class="scrim" data-close></div>
+    <div class="sheet" data-sheet="share" role="dialog" aria-label="Share">
+      <div class="grab"></div>
+      <h3>Share project</h3>
+      <button class="row pressable" data-close data-toast="Link copied" id="copy-link">
+        <span class="lines"><span class="t1">Copy link</span><span class="t2">Anyone with the link can view</span></span>
+      </button>
+      <button class="row pressable" data-close>
+        <span class="lines"><span class="t1">Cancel</span></span>
+      </button>
+    </div>
+
+    <!-- Toast overlays content -->
+    <div class="toast" role="status" aria-live="polite">
+      <span class="msg"></span>
+      <button class="x" aria-label="Dismiss" onclick="Proto.hideToast()">✕</button>
+    </div>
+
+    <div class="home-ind" aria-hidden="true"></div>
+  </div>
+</main>
+
+<div class="caption" aria-live="polite"></div>
+
+<!-- Video helpers: cursor and tap marker always on top -->
+<svg id="cursor" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 2l14 9.5-6.2 1.2 3.6 7.1-2.6 1.2-3.5-7.2L4 18.5z" fill="#111" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+<div id="ripple" aria-hidden="true"></div>
+
+<script src="proto.js"></script>
+<script>
+  Proto.init({
+    name: "Prototype shell",
+    hint: "Open a project and share it",
+    start: "list",
+    captions: {
+      list: "Your recent projects load in.",
+      detail: "Open a project to see the details.",
+      "sheet:share": "Share it with a link.",
+    },
+    hints: {
+      list: "#first-row",
+      detail: "#share-btn",
+      "sheet:share": "#copy-link",
+    },
+    onState(id) {
+      if (id === "list" && !Proto.loaded) { Proto.loaded = true; Proto.load(document.getElementById("list")); }
+    },
+    onRestart() { Proto.loaded = true; Proto.load(document.getElementById("list")); },
+  });
+</script>
+</body>
+</html>
