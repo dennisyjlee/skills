@@ -12,13 +12,16 @@ Design systems split it the same way: Carbon calls them *productive* and *expres
 ## Easing (one family per piece)
 | Token | Value | Use |
 |---|---|---|
-| `--ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, camera moves |
+| `--ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, sheets rising |
+| `--ease-camera` | `cubic-bezier(0.45, 0, 0.2, 1)` | Push-in and pull-back. Soft start, long settle |
 | `--ease-in-out` | `cubic-bezier(0.65, 0, 0.35, 1)` | Something leaving one spot and landing in another |
 | `--ease-settle` | `cubic-bezier(0.25, 1, 0.5, 1)` | Lists resolving, items making way, drops |
 | `--ease-glide` | `cubic-bezier(0.33, 0, 0.12, 1)` | Video scrolls |
 | `--ease-push` | `cubic-bezier(0.3, 0.7, 0.1, 1)` | iOS-style push |
 
 Never ease-in on UI. No bounce or overshoot on UI, with one exception below.
+
+The camera is not UI. It should feel heavier than what it films, so it never uses the UI ease-out: that curve covers most of the move in the first 100ms and reads as a snap.
 
 ## Play is for the payoff
 Consumer products earn a little play on celebratory moments: the confirmation, the success, the thing the whole flow was for. There, and only there:
@@ -35,6 +38,7 @@ Everything else keeps the no-bounce rule.
 | `--dur-ui` | 200–500ms | UI moves, sheets, toasts |
 | `--dur-scene` | 250–500ms | Transitions between scenes in a video |
 | `--dur-hero` | 400–800ms | Marketing and cover moves |
+| `--dur-camera` | 800–1000ms push-in, 500–600ms pull-back | Camera moves. The push settles at least 0.2s before the tap |
 | `--hold-read` | 1–1.5s | Anything people need to read |
 | `--hold-land` | 1.4s | After landing on a new screen |
 
