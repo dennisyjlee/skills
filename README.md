@@ -13,7 +13,7 @@ It covers:
 - **QA before every delivery:** frame checks, flicker and stall scans, a layer audit and a corner and type audit.
 - **A neutral starter kit:** device frame, desktop and mobile, captions, tap hints, push, sheet, toast and skeleton.
 
-The write-up with live examples: [dennisleedesign.com/play/motion](https://dennisleedesign.com/play/motion)
+The write-up with live examples: [dennisleedesign.com/prototype-reel](https://dennisleedesign.com/prototype-reel)
 
 ## Install
 
